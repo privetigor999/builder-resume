@@ -1,0 +1,17 @@
+.photoBlock {
+  &__photo {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 40px;
+
+    object-fit: cover;
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+  }
+}

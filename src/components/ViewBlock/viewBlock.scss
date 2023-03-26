@@ -1,0 +1,37 @@
+.viewBlock {
+  width: 100%;
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+  }
+
+  &__block {
+    position: relative;
+    z-index: 2;
+
+    & + & {
+      margin-left: 20px;
+    }
+  }
+
+  &__button {
+    padding: 6px 10px;
+
+    cursor: pointer;
+
+    border: 2px dashed var(--color-blue-main);
+    border-radius: 6px;
+    background-color: var(--color-white-main);
+  }
+
+  &__colors {
+    position: absolute;
+    top: 140%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

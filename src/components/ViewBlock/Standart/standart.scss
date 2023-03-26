@@ -1,0 +1,134 @@
+.standart {
+  $padding-left-right: 50px;
+
+  overflow: hidden;
+
+  min-width: 800px;
+  min-height: 1200px;
+  margin-left: -150px;
+  margin-right: -150px;
+  padding: 30px $padding-left-right;
+
+  border: 1px solid black;
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: #ffffff;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 150px;
+  }
+
+  &__name {
+    font-size: 30px;
+  }
+
+  &__surname {
+    font-size: 50px;
+  }
+
+  &__position {
+    font-size: 30px;
+
+    margin-top: 10px;
+  }
+
+  &__photo {
+    width: 200px;
+    height: 200px;
+    margin-right: 100px;
+
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__contacts {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    height: 60px;
+    margin: 0 -$padding-left-right;
+
+    padding: 0 calc(2 * $padding-left-right);
+  }
+
+  &__contact {
+    display: flex;
+    align-items: center;
+
+    color: #ffffff;
+
+    & + & {
+      margin-left: 40px;
+    }
+
+    a {
+      margin-left: 6px;
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 100px;
+  }
+
+  &__left {
+    width: 60%;
+    height: 100px;
+  }
+
+  &__right {
+    width: 40%;
+    margin-left: 30px;
+  }
+
+  &__category {
+    margin-bottom: 40px;
+    &-main {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+
+      padding: 10px 20px 10px 50px;
+      margin-left: 22.5px;
+
+      border-left: 4px solid;
+    }
+
+    &-title {
+      display: flex;
+      align-items: flex-end;
+
+      margin-bottom: 10px;
+
+      p {
+        font-size: 24px;
+        margin-left: 10px;
+      }
+    }
+
+    &-head {
+      display: flex;
+      justify-content: space-between;
+
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    &-bold {
+      font-weight: 800;
+    }
+  }
+}

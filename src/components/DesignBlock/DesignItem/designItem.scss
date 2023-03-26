@@ -1,0 +1,28 @@
+.designItem {
+  &__block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 100%;
+    margin-bottom: 100px;
+  }
+
+  &__example {
+    width: 200px;
+    height: 290px;
+    margin-right: 100px;
+
+    border: 1px solid black;
+  }
+}
+
+.css-1n1hggf-MuiFormControlLabel-root .MuiFormControlLabel-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  width: 100%;
+}

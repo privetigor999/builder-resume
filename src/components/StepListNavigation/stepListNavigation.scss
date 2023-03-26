@@ -1,0 +1,15 @@
+.stepNavigaion {
+  width: 100%;
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: inherit;
+    height: 100px;
+
+    background-color: var(--color-blue-main);
+  }
+}
