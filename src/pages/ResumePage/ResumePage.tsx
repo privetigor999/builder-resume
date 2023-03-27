@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import { BaseBlock } from "../../components/BaseBlock/BaseBlock";
 import { CoursesBlock } from "../../components/CoursesBlock/CoursesBlock";
 import { DesignBlock } from "../../components/DesignBlock/DesignBlock";
@@ -10,12 +11,13 @@ import { StepListNavigation } from "../../components/StepListNavigation/StepList
 import { ViewBlock } from "../../components/ViewBlock/ViewBlock";
 import { WorkExperienceBlock } from "../../components/WorkExperienceBlock/WorkExperienceBlock";
 import { useAppSelector } from "../../hooks/redux-hooks";
+import { useAuth } from "../../hooks/useAuth";
 
 import "./resumePage.scss";
 
 export default function ResumePage() {
   const currentTab = useAppSelector((state) => state.resumeTab.currentTab);
-
+  const { isAuth } = useAuth();
   const switchBlocks = (id: number) => {
     switch (id) {
       case 1:
@@ -39,12 +41,18 @@ export default function ResumePage() {
 
   return (
     <>
-      <div className="resumePage">
-        <h1>Коструктор резюме</h1>
-        <StepListNavigation />
-        {switchBlocks(currentTab)}
-      </div>
-      <MobileWarning />
+      {isAuth ? (
+        <>
+          <div className="resumePage">
+            <h1>Коструктор резюме</h1>
+            <StepListNavigation />
+            {switchBlocks(currentTab)}
+          </div>
+          <MobileWarning />
+        </>
+      ) : (
+        <Navigate to="/auth" replace />
+      )}
     </>
   );
 }

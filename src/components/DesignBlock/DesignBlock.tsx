@@ -9,7 +9,7 @@ import { Form } from "../Form/Form";
 import { SaveButton } from "../SaveButton/SaveButton";
 import { DesignItem } from "./DesignItem/DesignItem";
 
-import standartImg from "./../../../public/standart.png";
+import standartImg from "./../../assets/standart.png";
 
 export const DesignBlock = () => {
   const [value, setValue] = React.useState("standart");

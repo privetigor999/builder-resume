@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import resumeTabReducer from "./resumeTab/resumeTabReducer";
+import userReducer from "./userSlice/userReducer";
 
 const rootReducer = combineReducers({
   resumeTab: resumeTabReducer,
+  user: userReducer,
 });
 
 export const store = configureStore({
