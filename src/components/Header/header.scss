@@ -15,4 +15,9 @@
 
     height: inherit;
   }
+
+  &__right {
+    display: flex;
+    align-items: center;
+  }
 }

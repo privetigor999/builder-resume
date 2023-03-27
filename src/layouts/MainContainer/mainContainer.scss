@@ -1,8 +1,12 @@
 .mainContainer {
   position: relative;
 
-  display: flex;
+  display: none;
   flex-direction: column;
 
   padding: 0 30px 60px;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
 }
