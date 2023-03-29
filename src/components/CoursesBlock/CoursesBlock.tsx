@@ -1,9 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { doc, setDoc } from "firebase/firestore";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { db } from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { useAuth } from "../../hooks/useAuth";
 import { MainContainer } from "../../layouts/MainContainer/MainContainer";
-import { updateResume } from "../../store/resumeTab/resumeTabReducer";
+import { fetchResume } from "../../store/resumeData/resumeActions";
+import { IBlockProps } from "../../types/types";
 import { animatedScroll } from "../../utils/animatedScroll";
 import { getYears } from "../../utils/getYears";
 import { coursesSchema } from "../../utils/schema/coursesSchema";
@@ -12,13 +16,14 @@ import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import { SaveButton } from "../SaveButton/SaveButton";
 
-export const CoursesBlock = () => {
+export const CoursesBlock: React.FC<IBlockProps> = ({ id }) => {
   const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
 
   const years = getYears();
   const dispatch = useAppDispatch();
-  const resume = useAppSelector((state) => state.resumeTab.resume);
-  const courses = resume?.courses;
+  const data = useAppSelector((state) => state.resumeData.data);
+  const prevData = data?.courses;
+  const { userId } = useAuth();
 
   const {
     register,
@@ -30,12 +35,20 @@ export const CoursesBlock = () => {
     resolver: yupResolver(coursesSchema),
   });
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const values = getValues();
-    setIsFullfiled(true);
-    dispatch(updateResume({ courses: values }));
-    animatedScroll();
-    console.log(values);
+    try {
+      setIsFullfiled(true);
+      await setDoc(doc(db, "resume", userId), {
+        ...data,
+        courses: { ...values, blockId: id },
+      });
+      animatedScroll();
+      dispatch(fetchResume());
+    } catch (error) {
+      setIsFullfiled(false);
+      console.log(error);
+    }
   };
 
   const onError = () => {
@@ -50,7 +63,7 @@ export const CoursesBlock = () => {
             {...register("coursesCompany")}
             id="coursesCompany"
             label="Название учреждения"
-            defaultValue={courses?.coursesCompany}
+            defaultValue={prevData?.coursesCompany}
             error={!!errors?.coursesCompany}
             helperText={errors?.coursesCompany?.message}
             required
@@ -59,7 +72,7 @@ export const CoursesBlock = () => {
             {...register("coursesName")}
             id="coursesName"
             label="Название курса"
-            defaultValue={courses?.coursesName}
+            defaultValue={prevData?.coursesName}
             error={!!errors?.coursesName}
             helperText={errors?.coursesName?.message}
             required

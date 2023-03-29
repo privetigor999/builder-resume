@@ -12,51 +12,60 @@ import {
 } from "@mui/icons-material/";
 
 import "./standart.scss";
-import { HexColorPicker } from "react-colorful";
 
 interface IStandartProps {
   color: string;
 }
 
 export const Standart: React.FC<IStandartProps> = ({ color }) => {
-  const resume = useAppSelector((state) => state.resumeTab.resume);
+  const resume = useAppSelector((state) => state.resumeData.data);
 
   return (
     <div className="standart" style={{ transform: "scale(70%)" }}>
       <header className="standart__header">
-        {resume.photo && (
-          <img className="standart__photo" src={resume.photo} alt="photo" />
+        {resume?.photo?.imgUrl && (
+          <img
+            className="standart__photo"
+            src={resume.photo.imgUrl}
+            alt="photo"
+          />
         )}
         <div>
           <div style={{ color }}>
             <p className="standart__name">
-              {resume.base?.name} {resume.base?.middlename}
+              {resume.baseInfo?.name} {resume.baseInfo?.middlename}
             </p>
-            <b className="standart__surname"> {resume.base?.surname} </b>
+            <b className="standart__surname"> {resume.baseInfo?.surname} </b>
           </div>
-          {resume?.base?.position && (
-            <p className="standart__position">{resume.base.position}</p>
+          {resume?.baseInfo?.position && (
+            <p className="standart__position">{resume.baseInfo.position}</p>
           )}
         </div>
       </header>
+
       <div className="standart__contacts" style={{ backgroundColor: color }}>
-        {resume?.base?.email && (
+        {resume?.baseInfo?.email && (
           <div className="standart__contact">
             <Email sx={{ fill: "#ffffff" }} />
-            <a href={"mailto:" + resume.base.email}>{resume.base.email}</a>
+            <a href={"mailto:" + resume.baseInfo.email}>
+              {resume.baseInfo.email}
+            </a>
           </div>
         )}
-        {resume?.base?.phone && (
+        {resume?.baseInfo?.phone && (
           <div className="standart__contact">
             <Phone sx={{ fill: "#ffffff" }} />
-            <a href={"tel:" + resume.base.phone}>{resume.base.phone}</a>
+            <a href={"tel:" + resume.baseInfo.phone}>{resume.baseInfo.phone}</a>
           </div>
         )}
-        {resume?.base?.telegram && (
+        {resume?.baseInfo?.telegram && (
           <div className="standart__contact">
             <Telegram sx={{ fill: "#ffffff" }} />
-            <a href={"https://t.me/" + resume.base.telegram} target="_blank">
-              {resume.base.telegram}
+            <a
+              href={"https://t.me/" + resume.baseInfo.telegram}
+              target="_blank"
+            >
+              {resume.baseInfo.telegram}
             </a>
           </div>
         )}

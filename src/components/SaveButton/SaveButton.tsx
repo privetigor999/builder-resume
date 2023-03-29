@@ -9,14 +9,20 @@ interface SaveButtonProps {
   isFullfiled?: boolean;
   color?: "primary" | "success";
   errorMes?: string;
+  withIcon?: boolean;
+  props?: any;
+  fullWidth?: boolean;
 }
 
 export const SaveButton: React.FC<SaveButtonProps> = ({
   children,
   title,
   isFullfiled,
+  fullWidth = false,
+  withIcon = true,
   errorMes = "Заполните все обязательные поля",
   color = "success",
+  props,
 }) => {
   const [isShowSnackbar, setIsShowSnackbar] = React.useState(false);
 
@@ -39,12 +45,14 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
         color={color}
         type="submit"
         variant="contained"
-        endIcon={<Done />}
-        sx={{ width: "60%", marginBottom: "20px" }}
+        endIcon={withIcon && <Done />}
+        sx={{ width: `${fullWidth ? "100%" : "60%"}`, marginBottom: "20px" }}
         onClick={() => clickSaveBtn(TransitionLeft)}
+        {...props}
       >
         {children}
       </Button>
+
       <Snackbar
         open={isShowSnackbar}
         onClose={closeSnackbarHandler}

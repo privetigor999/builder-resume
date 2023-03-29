@@ -1,3 +1,5 @@
+import standartImg from "./../assets/standart.png";
+
 export const months = [
   "-",
   "Январь",
@@ -22,4 +24,26 @@ export const languagesLevels = [
   "Продвинутый",
   "Владение в совершенстве",
   "Родной",
+];
+
+export const academicDegrees = [
+  "Студент",
+  "Бакалавриат",
+  "Магистратура",
+  "Кандидат наук",
+];
+
+export const designItems = [
+  {
+    id: 1,
+    value: "standart",
+    label: "Стандартный",
+    img: standartImg,
+  },
+  {
+    id: 2,
+    value: "new",
+    label: "Новый",
+    img: "https://i.stack.imgur.com/yZQB0.png?s=64&g=1",
+  },
 ];

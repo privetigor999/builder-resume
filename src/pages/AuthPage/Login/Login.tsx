@@ -7,6 +7,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useAppDispatch } from "../../../hooks/redux-hooks";
 import { setUser } from "../../../store/userSlice/userReducer";
 import { useNavigate } from "react-router-dom";
+import { fetchResume } from "../../../store/resumeData/resumeActions";
 
 export const Login: React.FC = () => {
   const [isFullfiled, setIsFullfiled] = React.useState(false);
@@ -19,9 +20,8 @@ export const Login: React.FC = () => {
   });
 
   const onSubmit = () => {
-    setIsFullfiled(true);
     const auth = getAuth();
-
+    setIsFullfiled(true);
     signInWithEmailAndPassword(
       auth,
       getValues().signUpLogin,
@@ -35,6 +35,7 @@ export const Login: React.FC = () => {
             id: user.uid,
           })
         );
+        dispatch(fetchResume());
 
         navigate("/resume");
       })
@@ -50,16 +51,23 @@ export const Login: React.FC = () => {
         {...register("signUpLogin")}
         id="signUpLogin"
         label="Логин"
+        width="100%"
         required
       />
       <Input
         {...register("signUpPassword")}
         id="signUpPassword"
         label="Пароль"
+        width="100%"
         required
       />
 
-      <SaveButton title={"Вы успешно вошли"} isFullfiled={isFullfiled}>
+      <SaveButton
+        title={"Вы успешно вошли"}
+        errorMes={"Вы ввели неправильно логин или пароль"}
+        isFullfiled={isFullfiled}
+        fullWidth
+      >
         Войти
       </SaveButton>
     </Form>

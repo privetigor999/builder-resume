@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useAuth } from "../../hooks/useAuth";
 import { removeUser } from "../../store/userSlice/userReducer";
+import { removeData } from "../../store/resumeData/resumeReducer";
 
 import "./header.scss";
+import { setCurrentTab } from "../../store/resumeTab/resumeTabReducer";
 
 export const Header: React.FC = () => {
   const [isShowMenu, setIsShowMenu] = React.useState<null | HTMLElement>(null);
@@ -20,13 +22,10 @@ export const Header: React.FC = () => {
 
   const handlerLogout = () => {
     dispatch(removeUser());
+    dispatch(removeData());
+    dispatch(setCurrentTab(1));
+    setIsShowMenu(null);
   };
-
-  React.useEffect(() => {
-    return () => {
-      setIsShowMenu(null);
-    };
-  }, []);
 
   return (
     <header className="header">

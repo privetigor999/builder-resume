@@ -1,43 +1,43 @@
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { RadioGroup } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useAppDispatch } from "../../hooks/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { MainContainer } from "../../layouts/MainContainer/MainContainer";
-import { updateResume } from "../../store/resumeTab/resumeTabReducer";
 import { animatedScroll } from "../../utils/animatedScroll";
 import { Form } from "../Form/Form";
 import { SaveButton } from "../SaveButton/SaveButton";
 import { DesignItem } from "./DesignItem/DesignItem";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { IBlockProps } from "../../types/types";
+import { useAuth } from "../../hooks/useAuth";
+import { fetchResume } from "../../store/resumeData/resumeActions";
+import { designItems } from "../../utils/data";
 
-import standartImg from "./../../assets/standart.png";
+export const DesignBlock: React.FC<IBlockProps> = ({ id }) => {
+  const data = useAppSelector((state) => state.resumeData.data);
+  const prevData = data?.design;
 
-export const DesignBlock = () => {
-  const [value, setValue] = React.useState("standart");
+  const [value, setValue] = React.useState(prevData?.designName || "standart");
 
+  const { userId } = useAuth();
   const dispatch = useAppDispatch();
+
   const { handleSubmit } = useForm({
     mode: "onBlur",
   });
 
-  const designItems = [
-    {
-      id: 1,
-      value: "standart",
-      label: "Стандартный",
-      img: standartImg,
-    },
-    {
-      id: 2,
-      value: "new",
-      label: "Новый",
-      img: "https://i.stack.imgur.com/yZQB0.png?s=64&g=1",
-    },
-  ];
-
-  const onSubmit = () => {
-    dispatch(updateResume({ design: value }));
-    animatedScroll();
-    console.log(value);
+  const onSubmit = async () => {
+    try {
+      await setDoc(doc(db, "resume", userId), {
+        ...data,
+        design: { designName: value, blockId: id },
+      });
+      animatedScroll();
+      dispatch(fetchResume());
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +49,8 @@ export const DesignBlock = () => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <RadioGroup
           aria-labelledby="design-resume"
-          defaultValue="standart"
-          name="design-resume"
           value={value}
+          name="design-resume"
           onChange={handleChange}
           sx={{
             width: "100%",

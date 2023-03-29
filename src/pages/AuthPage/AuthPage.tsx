@@ -6,15 +6,24 @@ import { Login } from "./Login/Login";
 import { SignUp } from "./SignUp/SignUp";
 import { useLottie } from "lottie-react";
 
-import safetyIcon from "./../../assets/lottie/safety.json";
+import loginLottie from "./../../assets/lottie/login.json";
+import safetyLottie from "./../../assets/lottie/safety.json";
 
 const style = {
   height: 200,
-  marginTop: 100,
+};
+
+const style2 = {
+  height: 200,
 };
 
 const options = {
-  animationData: safetyIcon,
+  animationData: loginLottie,
+  autoplay: true,
+};
+
+const options2 = {
+  animationData: safetyLottie,
   loop: false,
   autoplay: true,
 };
@@ -22,6 +31,7 @@ const options = {
 export const AuthPage = () => {
   const [tab, setTab] = React.useState<number>(0);
   const { View } = useLottie(options, style);
+  const SafetyView = useLottie(options2, style2).View;
 
   const handleChange = (
     e: React.SyntheticEvent<Element, Event>,
@@ -34,47 +44,90 @@ export const AuthPage = () => {
     <>
       <MainContainer>
         <Box
-          style={{
+          sx={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
           }}
         >
           <Box
-            sx={{
-              width: "60%",
-              height: "100%",
-              marginTop: "140px",
+            style={{
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "space-between",
+              marginTop: "80px",
             }}
           >
-            <Tabs
-              value={tab}
-              onChange={handleChange}
-              aria-label="auth-tabs"
-              variant="fullWidth"
-              sx={{ marginBottom: "30px" }}
-              centered
+            <Box
+              sx={{
+                width: "50%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              <Tab label={"Вход"} {...a11yProps(0)} />
-              <Tab label={"Регистрация"} {...a11yProps(1)} />
-            </Tabs>
-            {tab === 0 && <Login />}
-            {tab === 1 && <SignUp />}
+              <Tabs
+                value={tab}
+                onChange={handleChange}
+                aria-label="auth-tabs"
+                variant="fullWidth"
+                sx={{ marginBottom: "20px" }}
+                centered
+              >
+                <Tab label={"Вход"} {...a11yProps(0)} />
+                <Tab label={"Регистрация"} {...a11yProps(1)} />
+              </Tabs>
+              {tab === 0 && <Login />}
+              {tab === 1 && <SignUp />}
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "50%",
+                marginLeft: "20px",
+                backgroundColor: "rgba(208, 116, 116, 0.601)",
+                borderRadius: "10px",
+              }}
+            >
+              <Box>{View}</Box>
+              <p style={{ textAlign: "center", padding: "0 10px 10px" }}>
+                Для создания резюме вам нужно зайти в свой аккаунт или
+                зарегистрироваться. Это поможет вам вернуться к редактированию
+                своего резюме.
+              </p>
+            </Box>
           </Box>
           <Box
             sx={{
-              width: "30%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              marginTop: "30px",
+              backgroundColor: "#c0c0c0",
+              borderRadius: "10px",
             }}
           >
-            <Box>{View}</Box>
-            <Typography sx={{ textAlign: "center" }} paragraph>
-              Мы гарантируем безопасность ваших данных. Для хранения мы
+            <Box>{SafetyView}</Box>
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: 20,
+                width: "60%",
+                color: "#ffffff",
+              }}
+            >
+              Мы гарантируем безопасность ваших данных. Для хранения данных мы
               используем Google FireBase.
-            </Typography>
+            </p>
           </Box>
         </Box>
       </MainContainer>

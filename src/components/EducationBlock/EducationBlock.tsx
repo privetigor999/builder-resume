@@ -8,21 +8,24 @@ import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { SaveButton } from "../SaveButton/SaveButton";
 import { animatedScroll } from "../../utils/animatedScroll";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
-import { updateResume } from "../../store/resumeTab/resumeTabReducer";
 import { educationSchema } from "../../utils/schema/educationSchema";
 import { getYears } from "../../utils/getYears";
+import { Checkbox, FormControlLabel } from "@mui/material";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { useAuth } from "../../hooks/useAuth";
+import { fetchResume } from "../../store/resumeData/resumeActions";
+import { IBlockProps } from "../../types/types";
+import { academicDegrees } from "../../utils/data";
 
-import { Button, Checkbox, FormControlLabel } from "@mui/material";
-import { Add } from "@mui/icons-material";
-
-export const EducationBlock: React.FC = () => {
+export const EducationBlock: React.FC<IBlockProps> = ({ id }) => {
   const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
-  const [countEducation, setCountEducation] = React.useState<number>(1);
 
-  const resume = useAppSelector((state) => state.resumeTab.resume);
-  const education = resume?.education;
-
+  const data = useAppSelector((state) => state.resumeData.data);
+  const prevData = data?.education;
+  const { userId } = useAuth();
   const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -36,27 +39,27 @@ export const EducationBlock: React.FC = () => {
 
   const isLearningNow = watch("isLearningNow", true);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const values = getValues();
-    console.log(values);
-    setIsFullfiled(true);
-    dispatch(updateResume({ education: values }));
-    animatedScroll();
+    try {
+      setIsFullfiled(true);
+      await setDoc(doc(db, "resume", userId), {
+        ...data,
+        education: { ...values, blockId: id },
+      });
+      animatedScroll();
+      dispatch(fetchResume());
+    } catch (error) {
+      setIsFullfiled(false);
+      console.log(error);
+    }
   };
 
   const onError = () => {
-    const values = getValues();
-    console.log(values);
     setIsFullfiled(false);
   };
 
   const years = getYears();
-  const academicDegrees = [
-    "Студент",
-    "Бакалавриат",
-    "Магистратура",
-    "Кандидат наук",
-  ];
 
   return (
     <MainContainer>
@@ -66,7 +69,7 @@ export const EducationBlock: React.FC = () => {
             {...register("university")}
             id="education"
             label="Название университета"
-            defaultValue={education?.university}
+            defaultValue={prevData?.university}
             error={!!errors.university}
             helperText={errors?.university?.message}
             required
@@ -120,7 +123,7 @@ export const EducationBlock: React.FC = () => {
             label="Факультет"
             error={!!errors?.faculty}
             helperText={errors?.faculty?.message}
-            defaultValue={education?.faculty}
+            defaultValue={prevData?.faculty}
             required
           />
           <Input
@@ -129,7 +132,7 @@ export const EducationBlock: React.FC = () => {
             label="Специализация"
             error={!!errors?.specialization}
             helperText={errors?.specialization?.message}
-            defaultValue={education?.specialization}
+            defaultValue={prevData?.specialization}
           />
         </Category>
 

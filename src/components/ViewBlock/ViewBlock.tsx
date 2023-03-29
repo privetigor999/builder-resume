@@ -8,7 +8,8 @@ import { useReactToPrint } from "react-to-print";
 import "./viewBlock.scss";
 
 export const ViewBlock = () => {
-  const design = useAppSelector((state) => state.resumeTab.resume.design);
+  const resume = useAppSelector((state) => state.resumeData.data);
+  const design = resume?.design?.designName;
   const [color, setColor] = React.useState("#c2c2c2");
   const [isShow, setIsShow] = React.useState(false);
 

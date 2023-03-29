@@ -15,6 +15,7 @@ interface ITextFieldProps {
   value?: any;
   setValue?: any;
   options?: any;
+  width?: any;
 }
 
 export const Input: React.FC<any> = React.forwardRef((props, ref) => {
@@ -41,7 +42,7 @@ export const Input: React.FC<any> = React.forwardRef((props, ref) => {
       type={props.type === "date" ? status : props.type}
       sx={{
         position: "relative",
-        width: "60%",
+        width: `${props?.width ? props.width : "60%"}`,
         marginBottom: "20px",
         "&:last-child": {
           marginBottom: "0px",

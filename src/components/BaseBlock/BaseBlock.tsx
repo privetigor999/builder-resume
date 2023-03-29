@@ -9,15 +9,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { baseSchema } from "../../utils/schema/baseSchema";
 import { animatedScroll } from "../../utils/animatedScroll";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
-import { updateResume } from "../../store/resumeTab/resumeTabReducer";
-import { Button, Fab } from "@mui/material";
-import { AddAPhoto } from "@mui/icons-material";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "./../../../firebase";
+import { useAuth } from "../../hooks/useAuth";
+import { fetchResume } from "../../store/resumeData/resumeActions";
+import { IBlockProps } from "../../types/types";
 
-export const BaseBlock: React.FC = () => {
+export const BaseBlock: React.FC<IBlockProps> = ({ id }) => {
   const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const resume = useAppSelector((state) => state.resumeTab.resume);
-  const prevData = resume?.base;
+  const data = useAppSelector((state) => state.resumeData.data);
+  const prevData = data?.baseInfo;
+  const { userId } = useAuth();
 
   const {
     register,
@@ -29,12 +32,19 @@ export const BaseBlock: React.FC = () => {
     resolver: yupResolver(baseSchema),
   });
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const values = getValues();
-    setIsFullfiled(true);
-    dispatch(updateResume({ base: values }));
-    animatedScroll();
-    console.log(values);
+    try {
+      setIsFullfiled(true);
+      await setDoc(doc(db, "resume", userId), {
+        ...data,
+        baseInfo: { ...values, blockId: id },
+      });
+      animatedScroll();
+      dispatch(fetchResume());
+    } catch (error) {
+      setIsFullfiled(false);
+    }
   };
 
   const onError = () => {

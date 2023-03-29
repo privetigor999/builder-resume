@@ -27,6 +27,7 @@ export const SignUp: React.FC = () => {
 
   const onSubmit = () => {
     setErrorMes("");
+    setIsFullfiled(true);
     const auth = getAuth();
 
     createUserWithEmailAndPassword(
@@ -35,8 +36,6 @@ export const SignUp: React.FC = () => {
       getValues().signUpPassword
     )
       .then(({ user }) => {
-        setIsFullfiled(true);
-        console.log(user);
         dispatch(
           setUser({
             email: user.email,
@@ -67,13 +66,14 @@ export const SignUp: React.FC = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} width="full">
       <Input
         {...register("signUpEmail")}
         id="signUpEmail"
         label="Почта"
         error={!!errors?.signUpEmail}
         helperText={errors?.signUpEmail?.message}
+        width="100%"
         required
       />
       <Input
@@ -82,14 +82,17 @@ export const SignUp: React.FC = () => {
         label="Пароль"
         error={!!errors?.signUpPassword}
         helperText={errors?.signUpPassword?.message}
+        width="100%"
         required
       />
 
       <SaveButton
-        title={"QQQQQQQ"}
+        title={"Вы успешно зарегистрировались!"}
         errorMes={errorMes}
         isFullfiled={isFullfiled}
         color={"primary"}
+        withIcon={false}
+        fullWidth
       >
         Зарегистрироваться
       </SaveButton>

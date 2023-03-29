@@ -4,7 +4,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { MainContainer } from "../../layouts/MainContainer/MainContainer";
-import { updateResume } from "../../store/resumeTab/resumeTabReducer";
 import { animatedScroll } from "../../utils/animatedScroll";
 import { getYears } from "../../utils/getYears";
 import { months } from "../../utils/data";
@@ -13,8 +12,15 @@ import { Category } from "../Category/Category";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import { SaveButton } from "../SaveButton/SaveButton";
+import { useAuth } from "../../hooks/useAuth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { fetchResume } from "../../store/resumeData/resumeActions";
+import { IBlockProps } from "../../types/types";
 
-export const WorkExperienceBlock = () => {
+export const WorkExperienceBlock: React.FC<IBlockProps> = ({ id }) => {
+  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -26,21 +32,27 @@ export const WorkExperienceBlock = () => {
     resolver: yupResolver(experienceSchema),
   });
   const dispatch = useAppDispatch();
-  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
   const isWorking = watch("isWorkingNow", true);
-
-  const resume = useAppSelector((state) => state.resumeTab.resume);
-  const experience = resume?.experience;
-
+  const { userId } = useAuth();
+  const data = useAppSelector((state) => state.resumeData.data);
+  const prevData = data?.experience;
   const years = getYears();
   const month = months;
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const values = getValues();
-    setIsFullfiled(true);
-    dispatch(updateResume({ experience: values }));
-    animatedScroll();
-    console.log(values);
+    try {
+      setIsFullfiled(true);
+      await setDoc(doc(db, "resume", userId), {
+        ...data,
+        experience: { ...values, blockId: id },
+      });
+      animatedScroll();
+      dispatch(fetchResume());
+    } catch (error) {
+      setIsFullfiled(false);
+      console.log(error);
+    }
   };
 
   const onError = () => {
@@ -55,7 +67,7 @@ export const WorkExperienceBlock = () => {
             {...register("companyName")}
             id="companyName"
             label="Название компании"
-            defaultValue={experience?.companyName}
+            defaultValue={prevData?.companyName}
             error={!!errors?.companyName}
             helperText={errors?.companyName?.message}
             required
@@ -64,7 +76,7 @@ export const WorkExperienceBlock = () => {
             {...register("position")}
             id="position"
             label="Должность"
-            defaultValue={experience?.position}
+            defaultValue={prevData?.position}
             error={!!errors?.position}
             helperText={errors?.position?.message}
             required
@@ -73,7 +85,7 @@ export const WorkExperienceBlock = () => {
             {...register("department")}
             id="department"
             label="Отдел"
-            defaultValue={experience?.department}
+            defaultValue={prevData?.department}
             error={!!errors?.department}
             helperText={errors?.department?.message}
           />
@@ -135,7 +147,7 @@ export const WorkExperienceBlock = () => {
             {...register("obligations")}
             id="obligations"
             label="Обязанности"
-            defaultValue={experience?.obligations}
+            defaultValue={prevData?.obligations}
             error={!!errors?.obligations}
             helperText={errors?.obligations?.message}
             multiline
