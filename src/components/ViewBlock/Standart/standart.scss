@@ -1,9 +1,8 @@
 .standart {
   $padding-left-right: 50px;
 
-  overflow: hidden;
-
   min-width: 800px;
+  transform: scale(70%);
   min-height: 1200px;
   margin-left: -150px;
   margin-right: -150px;
@@ -24,7 +23,7 @@
     align-items: center;
     justify-content: center;
 
-    margin-bottom: 80px;
+    margin-bottom: 40px;
   }
 
   &__name {
@@ -109,13 +108,13 @@
 
     &-title {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
 
       margin-bottom: 10px;
 
       p {
         font-size: 24px;
-        margin-left: 10px;
+        margin-left: 24px;
       }
     }
 

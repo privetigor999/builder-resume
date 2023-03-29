@@ -154,6 +154,15 @@ export const WorkExperienceBlock: React.FC<IBlockProps> = ({ id }) => {
             minRows={4}
             required
           />
+
+          <Input
+            {...register("link")}
+            id="link"
+            label="Ссылка на проект"
+            defaultValue={prevData?.link}
+            error={!!errors?.link}
+            helperText={errors?.link?.message}
+          />
           <SaveButton
             isFullfiled={isFullfiled}
             title={"Данные о вашем опыте обновлены"}

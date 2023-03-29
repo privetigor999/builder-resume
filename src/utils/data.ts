@@ -1,4 +1,5 @@
 import standartImg from "./../assets/standart.png";
+import halfImg from "./../assets/half.png";
 
 export const months = [
   "-",
@@ -42,8 +43,8 @@ export const designItems = [
   },
   {
     id: 2,
-    value: "new",
-    label: "Новый",
-    img: "https://i.stack.imgur.com/yZQB0.png?s=64&g=1",
+    value: "half",
+    label: "Половинчатый",
+    img: halfImg,
   },
 ];

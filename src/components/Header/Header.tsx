@@ -8,7 +8,7 @@ import { removeUser } from "../../store/userSlice/userReducer";
 import { removeData } from "../../store/resumeData/resumeReducer";
 
 import "./header.scss";
-import { setCurrentTab } from "../../store/resumeTab/resumeTabReducer";
+import { setCurrentTab } from "../../store/tabSlice/tabSlice";
 
 export const Header: React.FC = () => {
   const [isShowMenu, setIsShowMenu] = React.useState<null | HTMLElement>(null);
@@ -31,44 +31,54 @@ export const Header: React.FC = () => {
     <header className="header">
       <nav className="header__nav">
         <ul className="header__list">
-          <li>
-            <Link to="/">Главная</Link>
+          <li className="header__item">
+            <Link to="/" className="header__link">
+              Главная
+            </Link>
           </li>
-          <li className="header__right">
-            <Link to="/resume">Создать резюме</Link>
-            {isAuth && (
-              <div>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={isShowMenu}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(isShowMenu)}
-                  onClose={() => setIsShowMenu(null)}
-                >
-                  <MenuItem onClick={handlerLogout}>Выйти</MenuItem>
-                </Menu>
-              </div>
-            )}
+          <li className="header__item">
+            <Link to="/" className="header__link">
+              О нас
+            </Link>
           </li>
         </ul>
+        <div className="header__right">
+          <Link to="/resume" className="header__createBtn">
+            Создать резюме
+          </Link>
+          {isAuth && (
+            <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+                sx={{ marginLeft: "20px" }}
+              >
+                <AccountCircle style={{ color: "#ffffff" }} />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={isShowMenu}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(isShowMenu)}
+                onClose={() => setIsShowMenu(null)}
+              >
+                <MenuItem onClick={handlerLogout}>Выйти</MenuItem>
+              </Menu>
+            </div>
+          )}
+        </div>
       </nav>
     </header>
   );

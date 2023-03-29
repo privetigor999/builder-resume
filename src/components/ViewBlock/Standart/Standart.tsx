@@ -9,6 +9,8 @@ import {
   Work,
   LocalLibrary,
   Translate,
+  ThumbUp,
+  NewReleases,
 } from "@mui/icons-material/";
 
 import "./standart.scss";
@@ -21,7 +23,7 @@ export const Standart: React.FC<IStandartProps> = ({ color }) => {
   const resume = useAppSelector((state) => state.resumeData.data);
 
   return (
-    <div className="standart" style={{ transform: "scale(70%)" }}>
+    <div className="standart">
       <header className="standart__header">
         {resume?.photo?.imgUrl && (
           <img
@@ -73,6 +75,25 @@ export const Standart: React.FC<IStandartProps> = ({ color }) => {
 
       <div className="standart__main">
         <div className="standart__left">
+          {resume?.extraBlock?.information && (
+            <div className="standart__category">
+              <div className="standart__category-title">
+                <NewReleases sx={{ fontSize: "50px", fill: color }} />
+                <p style={{ color }}>Общая информация</p>
+              </div>
+              <div
+                className="standart__category-main"
+                style={{ borderColor: color }}
+              >
+                <div>
+                  {resume?.extraBlock?.information && (
+                    <p>{resume.extraBlock.information}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
           {resume?.education?.university && (
             <div className="standart__category">
               <div className="standart__category-title">
@@ -141,6 +162,22 @@ export const Standart: React.FC<IStandartProps> = ({ color }) => {
                   {resume?.experience?.obligations && (
                     <p>Обязанности: {resume.experience.obligations}</p>
                   )}
+                  {resume?.experience?.link && (
+                    <p>
+                      Ссылка на проект:{" "}
+                      <a
+                        style={{
+                          color: "#000000",
+                          textDecoration: `underline dashed ${color}`,
+                          cursor: "pointer",
+                        }}
+                        href={resume.experience.link}
+                        target="_blank"
+                      >
+                        {resume.experience.link}
+                      </a>
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -203,6 +240,25 @@ export const Standart: React.FC<IStandartProps> = ({ color }) => {
                     <p>{resume.languages.languageLevel2}</p>
                   )}
                 </div>
+              </div>
+            </div>
+          )}
+
+          {resume?.skills?.skill1 && (
+            <div className="standart__category">
+              <div className="standart__category-title">
+                <ThumbUp sx={{ fontSize: "50px", fill: color }} />
+                <p style={{ color }}>Навыки</p>
+              </div>
+              <div
+                className="standart__category-main"
+                style={{ borderColor: color }}
+              >
+                {resume?.skills?.skill1 && <p>{resume.skills.skill1}</p>}
+                {resume?.skills?.skill2 && <p>{resume.skills.skill2}</p>}
+                {resume?.skills?.skill3 && <p>{resume.skills.skill3}</p>}
+                {resume?.skills?.skill4 && <p>{resume.skills.skill4}</p>}
+                {resume?.skills?.skill5 && <p>{resume.skills.skill5}</p>}
               </div>
             </div>
           )}

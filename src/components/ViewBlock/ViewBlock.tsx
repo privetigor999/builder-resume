@@ -6,6 +6,7 @@ import { Standart } from "./Standart/Standart";
 import { useReactToPrint } from "react-to-print";
 
 import "./viewBlock.scss";
+import { HalfResume } from "./HalfResume/HalfResume";
 
 export const ViewBlock = () => {
   const resume = useAppSelector((state) => state.resumeData.data);
@@ -38,12 +39,17 @@ export const ViewBlock = () => {
         </div>
       </header>
       <div
-        style={{ overflow: "scroll", marginTop: "-100px" }}
+        style={{
+          overflow: "scroll",
+          marginTop: "-100px",
+          minHeight: "1200px",
+        }}
         ref={componentRef}
       >
         {(design === undefined || design === "standart") && (
           <Standart color={color} />
         )}
+        {design === "half" && <HalfResume color={color} />}
       </div>
     </MainContainer>
   );

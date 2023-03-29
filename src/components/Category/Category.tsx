@@ -11,6 +11,8 @@ import {
   LocalLibrary,
   Translate,
   AddAPhoto,
+  AddComment,
+  ThumbUp,
 } from "@mui/icons-material/";
 
 interface ICategory {
@@ -29,6 +31,8 @@ const icons = {
   courses: <LocalLibrary sx={{ fontSize: 30 }} />,
   languages: <Translate sx={{ fontSize: 30 }} />,
   photo: <AddAPhoto sx={{ fontSize: 30 }} />,
+  extra: <AddComment sx={{ fontSize: 30 }} />,
+  skill: <ThumbUp sx={{ fontSize: 30 }} />,
 };
 
 export const Category: React.FC<ICategory> = ({ children, title, icon }) => {

@@ -9,12 +9,14 @@ import {
   Brush,
   AddAPhoto,
   DocumentScanner,
+  AddComment,
+  ThumbUp,
 } from "@mui/icons-material/";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux-hooks";
-import { setCurrentTab } from "../../../store/resumeTab/resumeTabReducer";
+import { setCurrentTab } from "../../../store/tabSlice/tabSlice";
 
 import "./stepItemNavigation.scss";
-import { ITab } from "../../../store/resumeTab/types";
+import { ITab } from "../../../store/tabSlice/types";
 
 export const StepItemNavigation: React.FC<ITab> = ({ title, id, value }) => {
   const data = useAppSelector((state) => state.resumeData.data);
@@ -27,6 +29,17 @@ export const StepItemNavigation: React.FC<ITab> = ({ title, id, value }) => {
     width: "40px",
     height: "40px",
     fill: "#ffffff",
+    "@media (max-width: 850px)": {
+      width: "30px",
+    },
+  };
+
+  const doneIconStyles = {
+    fontSize: 30,
+    color: "#66bb6a",
+    "@media (max-width: 850px)": {
+      fontSize: 20,
+    },
   };
 
   const dispatch = useAppDispatch();
@@ -45,8 +58,10 @@ export const StepItemNavigation: React.FC<ITab> = ({ title, id, value }) => {
     4: <Work sx={styles} />,
     5: <LocalLibrary sx={styles} />,
     6: <Translate sx={styles} />,
-    7: <Brush sx={styles} />,
-    8: <DocumentScanner sx={styles} />,
+    7: <ThumbUp sx={styles} />,
+    8: <AddComment sx={styles} />,
+    9: <Brush sx={styles} />,
+    10: <DocumentScanner sx={styles} />,
   };
 
   return (
@@ -55,10 +70,7 @@ export const StepItemNavigation: React.FC<ITab> = ({ title, id, value }) => {
 
       <p className={classNameTitle}>{title}</p>
       {checkId && (
-        <CheckCircle
-          sx={{ fontSize: 30, color: "#66bb6a" }}
-          className="stepItemNavigation__done"
-        />
+        <CheckCircle sx={doneIconStyles} className="stepItemNavigation__done" />
       )}
     </div>
   );

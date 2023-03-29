@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IResumeData } from "../../types/types";
 import { fetchResume } from "./resumeActions";
 
 interface IState {
   status: string;
-  data: any;
+  data: IResumeData | any;
 }
 
 const initialState: IState = {

@@ -4,10 +4,12 @@ import { BaseBlock } from "../../components/BaseBlock/BaseBlock";
 import { CoursesBlock } from "../../components/CoursesBlock/CoursesBlock";
 import { DesignBlock } from "../../components/DesignBlock/DesignBlock";
 import { EducationBlock } from "../../components/EducationBlock/EducationBlock";
+import { ExtraInfoBlock } from "../../components/ExtraInfoBlock/ExtraInfoBlock";
 import { LanguagesBlock } from "../../components/LanguagesBlock/LanguagesBlock";
 import { Loader } from "../../components/Loader/Loader";
 import { MobileWarning } from "../../components/MobileWarning/MobileWarning";
 import { PhotoBlock } from "../../components/PhotoBlock/PhotoBlock";
+import { Skills } from "../../components/Skills/Skills";
 import { StepListNavigation } from "../../components/StepListNavigation/StepListNavigation";
 import { ViewBlock } from "../../components/ViewBlock/ViewBlock";
 import { WorkExperienceBlock } from "../../components/WorkExperienceBlock/WorkExperienceBlock";
@@ -40,8 +42,12 @@ export default function ResumePage() {
       case 6:
         return <LanguagesBlock id={id} />;
       case 7:
-        return <DesignBlock id={id} />;
+        return <Skills id={id} />;
       case 8:
+        return <ExtraInfoBlock id={id} />;
+      case 9:
+        return <DesignBlock id={id} />;
+      case 10:
         return <ViewBlock id={id} />;
     }
   };
@@ -68,7 +74,6 @@ export default function ResumePage() {
       {isAuth ? (
         <>
           <div className="resumePage">
-            <h1>Коструктор резюме</h1>
             <StepListNavigation />
             {switchBlocks(currentTab)}
           </div>

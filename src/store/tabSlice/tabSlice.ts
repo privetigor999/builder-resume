@@ -16,12 +16,14 @@ const initialState: IState = {
     { id: 4, title: "Опыт", value: "experience" },
     { id: 5, title: "Курсы", value: "courses" },
     { id: 6, title: "Языки", value: "languages" },
-    { id: 7, title: "Дизайн", value: "design" },
-    { id: 8, title: "Просмотр", value: "viewBlock" },
+    { id: 7, title: "Навыки", value: "skills" },
+    { id: 8, title: "Доп. инфо", value: "extraBlock" },
+    { id: 9, title: "Дизайн", value: "design" },
+    { id: 10, title: "Просмотр", value: "viewBlock" },
   ],
 };
 
-const resumeTabSlice = createSlice({
+const tabSlice = createSlice({
   name: "resumeTab",
   initialState,
   reducers: {
@@ -48,5 +50,5 @@ const resumeTabSlice = createSlice({
   },
 });
 
-export const { setCurrentTab } = resumeTabSlice.actions;
-export default resumeTabSlice.reducer;
+export const { setCurrentTab } = tabSlice.actions;
+export default tabSlice.reducer;

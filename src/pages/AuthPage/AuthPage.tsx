@@ -93,7 +93,7 @@ export const AuthPage = () => {
                 justifyContent: "center",
                 width: "50%",
                 marginLeft: "20px",
-                backgroundColor: "rgba(208, 116, 116, 0.601)",
+                backgroundColor: "#97d9eb",
                 borderRadius: "10px",
               }}
             >
@@ -112,7 +112,7 @@ export const AuthPage = () => {
               justifyContent: "center",
               width: "100%",
               marginTop: "30px",
-              backgroundColor: "#c0c0c0",
+              backgroundColor: "#c6c4c6",
               borderRadius: "10px",
             }}
           >

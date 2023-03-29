@@ -1,5 +1,7 @@
 import * as yup from "yup";
 
+const linkRegEx = /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/gm;
+
 export const experienceSchema = yup.object().shape({
   companyName: yup
     .string()
@@ -27,4 +29,9 @@ export const experienceSchema = yup.object().shape({
     .string()
     .required("Указание обязанностей обязательно")
     .max(1000, "Максимум 1000 символов"),
+
+  link: yup
+    .string()
+    .matches(linkRegEx, "Проверьте правильность написания ссылки")
+    .max(30, "Максимум 30 символов"),
 });

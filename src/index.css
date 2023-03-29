@@ -28,7 +28,8 @@ a:active {
 }
 
 @media print {
-  .standart {
+  .standart,
+  .halfResume {
     border: none;
   }
 }
