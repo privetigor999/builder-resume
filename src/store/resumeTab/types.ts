@@ -3,7 +3,7 @@ import { string } from "yup";
 export interface ITab {
   id: number;
   title: string;
-  isFill: boolean;
+  value: string;
 }
 
 export interface IBase {

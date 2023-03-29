@@ -7,6 +7,6 @@ export const useAuth = () => {
     isAuth: !!email,
     email,
     token,
-    id,
+    userId: id,
   };
 };

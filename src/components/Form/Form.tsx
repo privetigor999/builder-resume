@@ -9,7 +9,7 @@ interface IFormProps {
 
 export const Form: React.FC<any> = ({ children, ...props }) => {
   return (
-    <form {...props} className="form" noValidate>
+    <form className="form" {...props} noValidate>
       {children}
     </form>
   );
