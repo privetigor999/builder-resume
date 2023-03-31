@@ -9,7 +9,8 @@ import { SaveButton } from "../SaveButton/SaveButton";
 import { animatedScroll } from "../../utils/animatedScroll";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { educationSchema } from "../../utils/schema/educationSchema";
-import { getYears } from "../../utils/getYears";
+import { getYears } from "../../utils/helpers/getYears";
+import { findIndex } from "../../utils/helpers/findIndex";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
@@ -79,7 +80,11 @@ export const EducationBlock: React.FC<IBlockProps> = ({ id }) => {
             id="startedLearn"
             label="Начало обучения"
             options={years}
-            defaultValue={years[0]}
+            defaultValue={
+              prevData?.startedLearn
+                ? findIndex(years, prevData.startedLearn)
+                : years[0]
+            }
             error={!!errors.startedLearn}
             helperText={errors?.startedLearn?.message}
             select
@@ -103,7 +108,11 @@ export const EducationBlock: React.FC<IBlockProps> = ({ id }) => {
               id="finishedLearn"
               label="Конец обучения"
               options={years}
-              defaultValue={years[0]}
+              defaultValue={
+                prevData?.finishedLearn
+                  ? findIndex(years, prevData.finishedLearn)
+                  : years[0]
+              }
               error={!!errors.finishedLearn}
               helperText={errors?.finishedLearn?.message}
               select

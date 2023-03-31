@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
             </Link>
           </li>
           <li className="header__item">
-            <Link to="/" className="header__link">
+            <Link to="/about" className="header__link">
               О нас
             </Link>
           </li>
