@@ -93,12 +93,18 @@ export const AuthPage = () => {
                 justifyContent: "center",
                 width: "50%",
                 marginLeft: "20px",
-                backgroundColor: "#97d9eb",
+                backgroundColor: "#4fbd9a",
                 borderRadius: "10px",
               }}
             >
               <Box>{View}</Box>
-              <p style={{ textAlign: "center", padding: "0 10px 10px" }}>
+              <p
+                style={{
+                  textAlign: "center",
+                  padding: "0 30px 20px",
+                  color: "#ffffff",
+                }}
+              >
                 Для создания резюме вам нужно зайти в свой аккаунт или
                 зарегистрироваться. Это поможет вам вернуться к редактированию
                 своего резюме.
@@ -112,7 +118,7 @@ export const AuthPage = () => {
               justifyContent: "center",
               width: "100%",
               marginTop: "30px",
-              backgroundColor: "#c6c4c6",
+              backgroundColor: "#6b7fb0",
               borderRadius: "10px",
             }}
           >

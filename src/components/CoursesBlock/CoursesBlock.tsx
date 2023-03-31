@@ -9,7 +9,8 @@ import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { fetchResume } from "../../store/resumeData/resumeActions";
 import { IBlockProps } from "../../types/types";
 import { animatedScroll } from "../../utils/animatedScroll";
-import { getYears } from "../../utils/getYears";
+import { findIndex } from "../../utils/helpers/findIndex";
+import { getYears } from "../../utils/helpers/getYears";
 import { coursesSchema } from "../../utils/schema/coursesSchema";
 import { Category } from "../Category/Category";
 import { Form } from "../Form/Form";
@@ -81,7 +82,11 @@ export const CoursesBlock: React.FC<IBlockProps> = ({ id }) => {
             {...register("coursesEnd")}
             id="coursesEnd"
             label="Год окончания курсов"
-            defaultValue={years[0]}
+            defaultValue={
+              prevData?.coursesEnd
+                ? findIndex(years, prevData.coursesEnd)
+                : years[0]
+            }
             options={years}
             select
           />

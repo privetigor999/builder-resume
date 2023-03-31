@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { animatedScroll } from "../../utils/animatedScroll";
-import { getYears } from "../../utils/getYears";
+import { getYears } from "../../utils/helpers/getYears";
 import { months } from "../../utils/data";
 import { experienceSchema } from "../../utils/schema/experienceSchema";
 import { Category } from "../Category/Category";
@@ -17,6 +17,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { fetchResume } from "../../store/resumeData/resumeActions";
 import { IBlockProps } from "../../types/types";
+import { findIndex } from "../../utils/helpers/findIndex";
 
 export const WorkExperienceBlock: React.FC<IBlockProps> = ({ id }) => {
   const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
@@ -93,7 +94,11 @@ export const WorkExperienceBlock: React.FC<IBlockProps> = ({ id }) => {
             {...register("startMonth")}
             id="startMonth"
             label="Месяц начала работы"
-            defaultValue={month[0]}
+            defaultValue={
+              prevData?.startMonth
+                ? findIndex(month, prevData.startMonth)
+                : month[0]
+            }
             options={month}
             error={!!errors?.startMonth}
             helperText={errors?.startMonth?.message}
@@ -103,7 +108,11 @@ export const WorkExperienceBlock: React.FC<IBlockProps> = ({ id }) => {
           <Input
             {...register("startYear")}
             options={years}
-            defaultValue={years[0]}
+            defaultValue={
+              prevData?.startYear
+                ? findIndex(years, prevData.startYear)
+                : years[0]
+            }
             id="startYear"
             label="Год начала работы"
             error={!!errors?.startYear}
@@ -129,7 +138,11 @@ export const WorkExperienceBlock: React.FC<IBlockProps> = ({ id }) => {
                 {...register("endMonth")}
                 id="endMonth"
                 label="Месяц окончания работы"
-                defaultValue={month[0]}
+                defaultValue={
+                  prevData?.endMonth
+                    ? findIndex(month, prevData.endMonth)
+                    : month[0]
+                }
                 options={month}
                 select
               />
@@ -137,7 +150,11 @@ export const WorkExperienceBlock: React.FC<IBlockProps> = ({ id }) => {
                 {...register("endYear")}
                 id="endYear"
                 label="Год окончания работы"
-                defaultValue={years[0]}
+                defaultValue={
+                  prevData?.endYear
+                    ? findIndex(years, prevData.endYear)
+                    : years[0]
+                }
                 options={years}
                 select
               />
