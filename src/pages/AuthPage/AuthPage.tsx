@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 import { MobileWarning } from "../../components/MobileWarning/MobileWarning";
 import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { Login } from "./Login/Login";
