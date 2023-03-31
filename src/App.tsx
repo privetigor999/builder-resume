@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header/Header";
 import ResumePage from "./pages/ResumePage/ResumePage";
-import StartPage from "./pages/StartPage/StartPage";
+import { StartPage } from "./pages/StartPage/StartPage";
 import { AuthPage } from "./pages/AuthPage/AuthPage";
 
 import "./App.css";

@@ -1,3 +1,5 @@
+import { number, string } from "yup";
+
 export interface IBlockProps {
   id: number;
 }
@@ -89,4 +91,10 @@ export interface IPhoto {
 export interface IDesign {
   blockId: number;
   designName?: "new" | "standart";
+}
+
+export interface IAccordion {
+  id: number;
+  question: string;
+  answer: string;
 }
