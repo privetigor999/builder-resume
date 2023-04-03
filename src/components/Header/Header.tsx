@@ -43,9 +43,7 @@ export const Header: React.FC = () => {
           </li>
         </ul>
         <div className="header__right">
-          <Link to="/resume" className="header__createBtn">
-            Создать резюме
-          </Link>
+          <Link to="/resume" className="header__createBtn"></Link>
           {isAuth && (
             <div>
               <IconButton
@@ -55,7 +53,11 @@ export const Header: React.FC = () => {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
-                sx={{ marginLeft: "20px" }}
+                sx={{
+                  "@media (min-width: 768px)": {
+                    marginLeft: "20px",
+                  },
+                }}
               >
                 <AccountCircle style={{ color: "#ffffff" }} />
               </IconButton>

@@ -4,11 +4,19 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Form } from "../../../components/Form/Form";
-import { Input } from "../../../components/Input/Input";
 import { SaveButton } from "../../../components/SaveButton/SaveButton";
 import { useAppDispatch } from "../../../hooks/redux-hooks";
 import { setUser } from "../../../store/userSlice/userReducer";
 import { signUpSchema } from "../../../utils/schema/signUpSchema";
+import { TextField } from "@mui/material";
+
+const inputStyles = {
+  width: "100%",
+  marginBottom: "20px",
+  "& .MuiFormLabel-asterisk": {
+    color: "red",
+  },
+};
 
 export const SignUp: React.FC = () => {
   const [isFullfiled, setIsFullfiled] = React.useState(false);
@@ -66,36 +74,38 @@ export const SignUp: React.FC = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} width="full">
-      <Input
-        {...register("signUpEmail")}
-        id="signUpEmail"
-        label="Почта"
-        error={!!errors?.signUpEmail}
-        helperText={errors?.signUpEmail?.message}
-        width="100%"
-        required
-      />
-      <Input
-        {...register("signUpPassword")}
-        id="signUpPassword"
-        label="Пароль"
-        error={!!errors?.signUpPassword}
-        helperText={errors?.signUpPassword?.message}
-        width="100%"
-        required
-      />
+    <div style={{ width: "100%", maxWidth: "500px" }}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          {...register("signUpEmail")}
+          id="signUpEmail"
+          label="Почта"
+          sx={inputStyles}
+          error={!!errors?.signUpEmail}
+          helperText={errors?.signUpEmail?.message as string}
+          required
+        />
+        <TextField
+          {...register("signUpPassword")}
+          sx={inputStyles}
+          id="signUpPassword"
+          label="Пароль"
+          error={!!errors?.signUpPassword}
+          helperText={errors?.signUpPassword?.message as string}
+          required
+        />
 
-      <SaveButton
-        title={"Вы успешно зарегистрировались!"}
-        errorMes={errorMes}
-        isFullfiled={isFullfiled}
-        color={"primary"}
-        withIcon={false}
-        fullWidth
-      >
-        Зарегистрироваться
-      </SaveButton>
-    </Form>
+        <SaveButton
+          title={"Вы успешно зарегистрировались!"}
+          errorMes={errorMes}
+          isFullfiled={isFullfiled}
+          color={"primary"}
+          withIcon={false}
+          width="100%"
+        >
+          Зарегистрироваться
+        </SaveButton>
+      </Form>
+    </div>
   );
 };

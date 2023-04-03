@@ -1,9 +1,13 @@
 .header {
   height: var(--height-header);
-  padding: 0 30px;
+  padding: 0 20px;
 
   background-color: var(--color-blue-main);
   border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+
+  @media screen and (min-width: 786px) {
+    padding: 0 30px;
+  }
 
   &__nav {
     height: inherit;
@@ -56,6 +60,14 @@
     border-radius: 5px;
     color: var(--color-white);
     transition: transform 0.15s ease-in-out;
+
+    &::before {
+      content: "Резюме";
+
+      @media screen and (min-width: 768px) {
+        content: "Создать резюме";
+      }
+    }
 
     &:hover {
       transform: scale(105%);

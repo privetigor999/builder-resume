@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Tab, Tabs } from "@mui/material";
 import { MobileWarning } from "../../components/MobileWarning/MobileWarning";
-import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { Login } from "./Login/Login";
 import { SignUp } from "./SignUp/SignUp";
 import { useLottie } from "lottie-react";
 
+import "./authPage.scss";
 import loginLottie from "./../../assets/lottie/login.json";
 import safetyLottie from "./../../assets/lottie/safety.json";
 
@@ -42,7 +42,7 @@ export const AuthPage = () => {
 
   return (
     <>
-      <MainContainer>
+      <div className="authPage">
         <Box
           sx={{
             display: "flex",
@@ -136,7 +136,7 @@ export const AuthPage = () => {
             </p>
           </Box>
         </Box>
-      </MainContainer>
+      </div>
       <MobileWarning />
     </>
   );

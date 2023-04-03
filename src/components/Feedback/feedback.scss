@@ -6,9 +6,19 @@
   padding: 60px 0;
 
   h5 {
-    font-size: 36px;
-    padding-bottom: 30px;
+    font-size: 20px;
+    padding-bottom: 15px;
 
     color: var(--color-blue-main);
+
+    @media screen and (min-width: 768px) {
+      font-size: 26px;
+
+      padding-bottom: 30px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      font-size: 36px;
+    }
   }
 }

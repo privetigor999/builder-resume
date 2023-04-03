@@ -12,12 +12,14 @@ interface SaveButtonProps {
   withIcon?: boolean;
   props?: any;
   fullWidth?: boolean;
+  width?: string;
 }
 
 export const SaveButton: React.FC<SaveButtonProps> = ({
   children,
   title,
   isFullfiled,
+  width,
   fullWidth = false,
   withIcon = true,
   errorMes = "Заполните все обязательные поля",
@@ -46,7 +48,13 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
         type="submit"
         variant="contained"
         endIcon={withIcon && <Done />}
-        sx={{ width: `${fullWidth ? "100%" : "60%"}`, marginBottom: "20px" }}
+        sx={{
+          width: `${width || fullWidth ? "100%" : "80%"}`,
+          "@media (min-width: 786px)": {
+            width: `${width || "700px"}`,
+          },
+          marginBottom: "20px",
+        }}
         onClick={() => clickSaveBtn(TransitionLeft)}
         {...props}
       >

@@ -58,6 +58,9 @@ export const Input: React.FC<any> = React.forwardRef((props, ref) => {
           "-webkit-appearance": "none",
           margin: 0,
         },
+        "@media (min-width: 786px)": {
+          width: "700px",
+        },
       }}
     >
       {props.options?.map((option: string) => (
