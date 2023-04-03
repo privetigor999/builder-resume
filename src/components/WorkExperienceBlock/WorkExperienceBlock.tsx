@@ -1,6 +1,6 @@
+import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Checkbox, FormControlLabel } from "@mui/material";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { MainContainer } from "../../layouts/MainContainer/MainContainer";
@@ -18,9 +18,10 @@ import { db } from "../../../firebase";
 import { fetchResume } from "../../store/resumeData/resumeActions";
 import { IBlockProps } from "../../types/types";
 import { findIndex } from "../../utils/helpers/findIndex";
+import { showFetchError } from "../../utils/helpers/showFetchError";
 
 export const WorkExperienceBlock: React.FC<IBlockProps> = ({ id }) => {
-  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
+  const [isFulfilled, setIsFullfiled] = React.useState<boolean>(false);
 
   const {
     register,
@@ -44,15 +45,16 @@ export const WorkExperienceBlock: React.FC<IBlockProps> = ({ id }) => {
     const values = getValues();
     try {
       setIsFullfiled(true);
-      await setDoc(doc(db, "resume", userId), {
+      const dataToUpdate = {
         ...data,
         experience: { ...values, blockId: id },
-      });
+      };
+      await setDoc(doc(db, "resume", userId), dataToUpdate);
       animatedScroll();
       dispatch(fetchResume());
     } catch (error) {
       setIsFullfiled(false);
-      console.log(error);
+      showFetchError(onSubmit);
     }
   };
 
@@ -181,7 +183,7 @@ export const WorkExperienceBlock: React.FC<IBlockProps> = ({ id }) => {
             helperText={errors?.link?.message}
           />
           <SaveButton
-            isFullfiled={isFullfiled}
+            isFulfilled={isFulfilled}
             title={"Данные о вашем опыте обновлены"}
           >
             Сохранить

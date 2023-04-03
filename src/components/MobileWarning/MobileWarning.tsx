@@ -15,7 +15,7 @@ const options = {
   autoplay: true,
 };
 
-export const MobileWarning = () => {
+export const MobileWarning: React.FC = () => {
   const { View } = useLottie(options, style);
   return (
     <div className="mobileWarning">

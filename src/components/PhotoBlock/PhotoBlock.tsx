@@ -21,7 +21,7 @@ import { CircularProgressWithLabel } from "./../CircularProgressWithLabel/Circul
 import "./photoBlock.scss";
 
 export const PhotoBlock: React.FC<IBlockProps> = ({ id }) => {
-  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
+  const [isFulfilled, setIsFulfilled] = React.useState<boolean>(false);
   const [selectedFile, setSelectedFile] = React.useState<any>(null);
   const [uploadPercentage, setUploadPercentage] = React.useState<null | number>(
     null
@@ -64,8 +64,7 @@ export const PhotoBlock: React.FC<IBlockProps> = ({ id }) => {
         },
 
         (error) => {
-          console.log(error);
-          setIsFullfiled(false);
+          setIsFulfilled(false);
         },
 
         async () => {
@@ -80,10 +79,9 @@ export const PhotoBlock: React.FC<IBlockProps> = ({ id }) => {
             });
             dispatch(fetchResume());
             callSlide(TransitionLeft);
-            setIsFullfiled(true);
+            setIsFulfilled(true);
           } catch (error) {
-            console.log(error);
-            setIsFullfiled(false);
+            setIsFulfilled(false);
           }
         }
       );
@@ -166,9 +164,9 @@ export const PhotoBlock: React.FC<IBlockProps> = ({ id }) => {
       >
         <Alert
           onClose={closeSnackbarHandler}
-          severity={isFullfiled ? "success" : "error"}
+          severity={isFulfilled ? "success" : "error"}
         >
-          {isFullfiled
+          {isFulfilled
             ? "Ваша фотография обновлена"
             : "Ваша фотография удалена"}
         </Alert>

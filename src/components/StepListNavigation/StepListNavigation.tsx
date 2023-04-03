@@ -1,7 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { ITab } from "../../store/tabSlice/types";
-import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { StepItemNavigation } from "./StepItemNavigation/StepItemNavigation";
 
 import "./stepListNavigation.scss";

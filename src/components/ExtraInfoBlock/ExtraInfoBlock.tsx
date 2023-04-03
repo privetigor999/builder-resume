@@ -1,6 +1,6 @@
+import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { doc, setDoc } from "firebase/firestore";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { db } from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
@@ -9,6 +9,7 @@ import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { fetchResume } from "../../store/resumeData/resumeActions";
 import { IBlockProps } from "../../types/types";
 import { animatedScroll } from "../../utils/animatedScroll";
+import { showFetchError } from "../../utils/helpers/showFetchError";
 import { extraBlockSchema } from "../../utils/schema/extraBlockSchema";
 import { Category } from "../Category/Category";
 import { Form } from "../Form/Form";
@@ -16,7 +17,7 @@ import { Input } from "../Input/Input";
 import { SaveButton } from "../SaveButton/SaveButton";
 
 export const ExtraInfoBlock: React.FC<IBlockProps> = ({ id }) => {
-  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
+  const [isFulfilled, setIsFulfilled] = React.useState<boolean>(false);
 
   const data = useAppSelector((state) => state.resumeData.data);
   const prevData = data?.extraBlock;
@@ -36,21 +37,22 @@ export const ExtraInfoBlock: React.FC<IBlockProps> = ({ id }) => {
   const onSubmit = async () => {
     const values = getValues();
     try {
-      setIsFullfiled(true);
-      await setDoc(doc(db, "resume", userId), {
+      setIsFulfilled(true);
+      const dataToUpdate = {
         ...data,
         extraBlock: { ...values, blockId: id },
-      });
+      };
+      await setDoc(doc(db, "resume", userId), dataToUpdate);
       animatedScroll();
       dispatch(fetchResume());
     } catch (error) {
-      setIsFullfiled(false);
-      console.log(error);
+      setIsFulfilled(false);
+      showFetchError(onSubmit);
     }
   };
 
   const onError = () => {
-    setIsFullfiled(false);
+    setIsFulfilled(false);
   };
   return (
     <MainContainer>
@@ -68,7 +70,7 @@ export const ExtraInfoBlock: React.FC<IBlockProps> = ({ id }) => {
             required
           />
         </Category>
-        <SaveButton title="Информация сохранена" isFullfiled={isFullfiled}>
+        <SaveButton title="Информация сохранена" isFulfilled={isFulfilled}>
           Сохранить
         </SaveButton>
       </Form>

@@ -1,20 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  deleteDoc,
-  updateDoc,
-  deleteField,
-} from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteField } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { useAppDispatch } from "../../hooks/redux-hooks";
-import { useAuth } from "../../hooks/useAuth";
 
 export const fetchResume = createAsyncThunk(
   "resumeData/fetchResume",
-  async (_, { getState }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
       let resume: any = [];
       const { id } = getState().user;
@@ -30,14 +20,14 @@ export const fetchResume = createAsyncThunk(
 
       return resume;
     } catch (error) {
-      console.log(error);
+      return rejectWithValue(error);
     }
   }
 );
 
 export const deleteBlockResume = createAsyncThunk(
   "resumeData/deleteBlockResume",
-  async (_, { getState, dispatch }) => {
+  async (_, { getState, dispatch, rejectWithValue }) => {
     try {
       const { id } = getState().user;
 
@@ -49,7 +39,7 @@ export const deleteBlockResume = createAsyncThunk(
       dispatch(fetchResume());
       return;
     } catch (error) {
-      console.log(error);
+      return rejectWithValue(error);
     }
   }
 );

@@ -18,9 +18,10 @@ import { useAuth } from "../../hooks/useAuth";
 import { fetchResume } from "../../store/resumeData/resumeActions";
 import { IBlockProps } from "../../types/types";
 import { academicDegrees } from "../../utils/data";
+import { showFetchError } from "../../utils/helpers/showFetchError";
 
 export const EducationBlock: React.FC<IBlockProps> = ({ id }) => {
-  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
+  const [isFulfilled, setIsFulfilled] = React.useState<boolean>(false);
 
   const data = useAppSelector((state) => state.resumeData.data);
   const prevData = data?.education;
@@ -43,21 +44,22 @@ export const EducationBlock: React.FC<IBlockProps> = ({ id }) => {
   const onSubmit = async () => {
     const values = getValues();
     try {
-      setIsFullfiled(true);
-      await setDoc(doc(db, "resume", userId), {
+      setIsFulfilled(true);
+      const dataToUpdate = {
         ...data,
         education: { ...values, blockId: id },
-      });
+      };
+      await setDoc(doc(db, "resume", userId), dataToUpdate);
       animatedScroll();
       dispatch(fetchResume());
     } catch (error) {
-      setIsFullfiled(false);
-      console.log(error);
+      setIsFulfilled(false);
+      showFetchError(onSubmit);
     }
   };
 
   const onError = () => {
-    setIsFullfiled(false);
+    setIsFulfilled(false);
   };
 
   const years = getYears();
@@ -147,7 +149,7 @@ export const EducationBlock: React.FC<IBlockProps> = ({ id }) => {
 
         <SaveButton
           title="Данные об образовании сохранены"
-          isFullfiled={isFullfiled}
+          isFulfilled={isFulfilled}
         >
           Сохранить
         </SaveButton>

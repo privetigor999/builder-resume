@@ -1,6 +1,5 @@
 import React from "react";
 import { CarouselBlock } from "../../components/CarouselBlock/CarouselBlock";
-import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { AccordionBlock } from "./AccordionBlock/AccordionBlock";
 import { EmployeeList } from "./EmployeeList/EmployeeList";
 import { Info } from "./Info/Info";

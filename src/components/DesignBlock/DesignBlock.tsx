@@ -1,5 +1,5 @@
-import { RadioGroup } from "@mui/material";
 import React from "react";
+import { RadioGroup } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { MainContainer } from "../../layouts/MainContainer/MainContainer";
@@ -13,13 +13,13 @@ import { IBlockProps } from "../../types/types";
 import { useAuth } from "../../hooks/useAuth";
 import { fetchResume } from "../../store/resumeData/resumeActions";
 import { designItems } from "../../utils/data";
+import { showFetchError } from "../../utils/helpers/showFetchError";
 
 export const DesignBlock: React.FC<IBlockProps> = ({ id }) => {
   const data = useAppSelector((state) => state.resumeData.data);
   const prevData = data?.design;
 
   const [value, setValue] = React.useState(prevData?.designName || "standart");
-
   const { userId } = useAuth();
   const dispatch = useAppDispatch();
 
@@ -29,14 +29,15 @@ export const DesignBlock: React.FC<IBlockProps> = ({ id }) => {
 
   const onSubmit = async () => {
     try {
-      await setDoc(doc(db, "resume", userId), {
+      const dataToUpdate = {
         ...data,
         design: { designName: value, blockId: id },
-      });
+      };
+      await setDoc(doc(db, "resume", userId), dataToUpdate);
       animatedScroll();
       dispatch(fetchResume());
     } catch (error) {
-      console.log(error);
+      showFetchError(onSubmit);
     }
   };
 
@@ -63,7 +64,7 @@ export const DesignBlock: React.FC<IBlockProps> = ({ id }) => {
             <DesignItem key={design.id} {...design} />
           ))}
         </RadioGroup>
-        <SaveButton title="Выбор дизайна сохранен" isFullfiled={true}>
+        <SaveButton title="Выбор дизайна сохранен" isFulfilled={true}>
           Сохранить
         </SaveButton>
       </Form>

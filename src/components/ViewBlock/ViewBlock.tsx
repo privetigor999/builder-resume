@@ -4,9 +4,9 @@ import { useAppSelector } from "../../hooks/redux-hooks";
 import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { Standart } from "./Standart/Standart";
 import { useReactToPrint } from "react-to-print";
+import { HalfResume } from "./HalfResume/HalfResume";
 
 import "./viewBlock.scss";
-import { HalfResume } from "./HalfResume/HalfResume";
 
 export const ViewBlock = () => {
   const resume = useAppSelector((state) => state.resumeData.data);
