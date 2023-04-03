@@ -1,7 +1,6 @@
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import { feedBackSchema } from "../../utils/schema/feedbackSchema";
@@ -12,7 +11,7 @@ import { fetchForm } from "../../store/feedbackSlice/feedBackAction";
 import "./feedback.scss";
 
 export const Feedback: React.FC = () => {
-  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
+  const [isFulfilled, setIsFulfilled] = React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const {
@@ -28,11 +27,11 @@ export const Feedback: React.FC = () => {
   const onSubmit = () => {
     const formValues = getValues();
     dispatch(fetchForm(formValues));
-    setIsFullfiled(true);
+    setIsFulfilled(true);
   };
 
   const onError = () => {
-    setIsFullfiled(false);
+    setIsFulfilled(false);
   };
   return (
     <div className="feedback">
@@ -65,7 +64,7 @@ export const Feedback: React.FC = () => {
           required
         />
         <SaveButton
-          isFullfiled={isFullfiled}
+          isFulfilled={isFulfilled}
           title="Сообщение отправлено"
           withIcon={false}
         >

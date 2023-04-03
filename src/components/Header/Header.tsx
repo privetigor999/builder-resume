@@ -1,20 +1,28 @@
 import React from "react";
-import { AccountCircle } from "@mui/icons-material";
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import { AccountCircle, Mail } from "@mui/icons-material";
+import {
+  Divider,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useAuth } from "../../hooks/useAuth";
 import { removeUser } from "../../store/userSlice/userReducer";
 import { removeData } from "../../store/resumeData/resumeReducer";
-
-import "./header.scss";
 import { setCurrentTab } from "../../store/tabSlice/tabSlice";
 
-export const Header: React.FC = () => {
+import "./header.scss";
+
+export const Header: React.FC = React.memo(() => {
   const [isShowMenu, setIsShowMenu] = React.useState<null | HTMLElement>(null);
 
   const { isAuth } = useAuth();
   const dispatch = useAppDispatch();
+  const { email } = useAuth();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setIsShowMenu(event.currentTarget);
@@ -76,6 +84,13 @@ export const Header: React.FC = () => {
                 open={Boolean(isShowMenu)}
                 onClose={() => setIsShowMenu(null)}
               >
+                <MenuItem>
+                  <ListItemIcon>
+                    <Mail fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>{email}</ListItemText>
+                </MenuItem>
+                <Divider />
                 <MenuItem onClick={handlerLogout}>Выйти</MenuItem>
               </Menu>
             </div>
@@ -84,4 +99,4 @@ export const Header: React.FC = () => {
       </nav>
     </header>
   );
-};
+});

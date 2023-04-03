@@ -6,7 +6,7 @@ import { TransitionProps } from "@mui/material/transitions";
 interface SaveButtonProps {
   children: React.ReactNode;
   title: string;
-  isFullfiled?: boolean;
+  isFulfilled?: boolean;
   color?: "primary" | "success";
   errorMes?: string;
   withIcon?: boolean;
@@ -18,7 +18,7 @@ interface SaveButtonProps {
 export const SaveButton: React.FC<SaveButtonProps> = ({
   children,
   title,
-  isFullfiled,
+  isFulfilled,
   width,
   fullWidth = false,
   withIcon = true,
@@ -70,9 +70,9 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
       >
         <Alert
           onClose={closeSnackbarHandler}
-          severity={isFullfiled ? "success" : "error"}
+          severity={isFulfilled ? "success" : "error"}
         >
-          {isFullfiled ? title : errorMes}
+          {isFulfilled ? title : errorMes}
         </Alert>
       </Snackbar>
     </>

@@ -13,10 +13,11 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "./../../../firebase";
 import { useAuth } from "../../hooks/useAuth";
 import { fetchResume } from "../../store/resumeData/resumeActions";
-import { IBlockProps } from "../../types/types";
+import { IBase, IBlockProps } from "../../types/types";
+import { showFetchError } from "../../utils/helpers/showFetchError";
 
 export const BaseBlock: React.FC<IBlockProps> = ({ id }) => {
-  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
+  const [isFulfilled, setIsFulfilled] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.resumeData.data);
   const prevData = data?.baseInfo;
@@ -27,7 +28,7 @@ export const BaseBlock: React.FC<IBlockProps> = ({ id }) => {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm({
+  } = useForm<IBase>({
     mode: "onBlur",
     resolver: yupResolver(baseSchema),
   });
@@ -35,20 +36,19 @@ export const BaseBlock: React.FC<IBlockProps> = ({ id }) => {
   const onSubmit = async () => {
     const values = getValues();
     try {
-      setIsFullfiled(true);
-      await setDoc(doc(db, "resume", userId), {
-        ...data,
-        baseInfo: { ...values, blockId: id },
-      });
+      setIsFulfilled(true);
+      const dataToUpdate = { ...data, baseInfo: { ...values, blockId: id } };
+      await setDoc(doc(db, "resume", userId), dataToUpdate);
       animatedScroll();
       dispatch(fetchResume());
     } catch (error) {
-      setIsFullfiled(false);
+      setIsFulfilled(false);
+      showFetchError(onSubmit);
     }
   };
 
   const onError = () => {
-    setIsFullfiled(false);
+    setIsFulfilled(false);
   };
 
   return (
@@ -142,7 +142,7 @@ export const BaseBlock: React.FC<IBlockProps> = ({ id }) => {
           />
         </Category>
 
-        <SaveButton isFullfiled={isFullfiled} title={"Данные о вас обновлены"}>
+        <SaveButton isFulfilled={isFulfilled} title={"Данные о вас обновлены"}>
           Сохранить
         </SaveButton>
       </Form>

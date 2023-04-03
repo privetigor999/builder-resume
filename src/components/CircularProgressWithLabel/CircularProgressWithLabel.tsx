@@ -1,10 +1,10 @@
+import React from "react";
 import {
   Box,
   CircularProgress,
   CircularProgressProps,
   Typography,
 } from "@mui/material";
-import React from "react";
 
 export const CircularProgressWithLabel = (
   props: CircularProgressProps & { value: number }

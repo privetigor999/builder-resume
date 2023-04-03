@@ -10,7 +10,7 @@ import { fetchResume } from "../../../store/resumeData/resumeActions";
 import { TextField } from "@mui/material";
 
 export const Login: React.FC = () => {
-  const [isFullfiled, setIsFullfiled] = React.useState(false);
+  const [isFulfilled, setIsFulfilled] = React.useState(false);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export const Login: React.FC = () => {
 
   const onSubmit = () => {
     const auth = getAuth();
-    setIsFullfiled(true);
+    setIsFulfilled(true);
     signInWithEmailAndPassword(
       auth,
       getValues().signUpLogin,
@@ -48,7 +48,7 @@ export const Login: React.FC = () => {
         navigate("/resume");
       })
       .catch(() => {
-        setIsFullfiled(false);
+        setIsFulfilled(false);
         console.error;
       });
   };
@@ -74,7 +74,7 @@ export const Login: React.FC = () => {
         <SaveButton
           title={"Вы успешно вошли"}
           errorMes={"Вы ввели неправильно логин или пароль"}
-          isFullfiled={isFullfiled}
+          isFulfilled={isFulfilled}
           width="100%"
         >
           Войти

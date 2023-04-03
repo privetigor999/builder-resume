@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC, memo } from "react";
 import { ThumbUp, ThumbDown } from "@mui/icons-material";
 
 import "./helper.scss";
@@ -8,7 +8,7 @@ interface IHelperProps {
   helpers: IHelpers;
 }
 
-export const Helper: FC<IHelperProps> = ({ helpers }) => {
+export const Helper: FC<IHelperProps> = memo(({ helpers }) => {
   if (helpers === undefined) {
     return;
   }
@@ -53,4 +53,4 @@ export const Helper: FC<IHelperProps> = ({ helpers }) => {
       </ul>
     </aside>
   );
-};
+});

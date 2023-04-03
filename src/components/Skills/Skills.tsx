@@ -1,6 +1,6 @@
+import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { doc, setDoc } from "firebase/firestore";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { db } from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
@@ -16,7 +16,7 @@ import { Input } from "../Input/Input";
 import { SaveButton } from "../SaveButton/SaveButton";
 
 export const Skills: React.FC<IBlockProps> = ({ id }) => {
-  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
+  const [isFulfilled, setIsFulfilled] = React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.resumeData.data);
@@ -35,7 +35,7 @@ export const Skills: React.FC<IBlockProps> = ({ id }) => {
   const onSubmit = async () => {
     const values = getValues();
     try {
-      setIsFullfiled(true);
+      setIsFulfilled(true);
       await setDoc(doc(db, "resume", userId), {
         ...data,
         skills: { ...values, blockId: id },
@@ -43,13 +43,13 @@ export const Skills: React.FC<IBlockProps> = ({ id }) => {
       animatedScroll();
       dispatch(fetchResume());
     } catch (error) {
-      setIsFullfiled(false);
+      setIsFulfilled(false);
       console.log(error);
     }
   };
 
   const onError = () => {
-    setIsFullfiled(false);
+    setIsFulfilled(false);
   };
   return (
     <MainContainer>
@@ -99,7 +99,7 @@ export const Skills: React.FC<IBlockProps> = ({ id }) => {
           />
         </Category>
         <SaveButton
-          isFullfiled={isFullfiled}
+          isFulfilled={isFulfilled}
           title={"Данные о ваших умениях обновлены"}
         >
           Сохранить

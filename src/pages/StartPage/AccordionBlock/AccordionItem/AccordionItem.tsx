@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Accordion,
   AccordionDetails,
@@ -6,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+
 import { IAccordion } from "../../../../types/types";
 
 const imgStyles = {

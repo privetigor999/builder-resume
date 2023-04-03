@@ -1,29 +1,30 @@
+import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { doc, setDoc } from "firebase/firestore";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { db } from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { useAuth } from "../../hooks/useAuth";
 import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { fetchResume } from "../../store/resumeData/resumeActions";
-import { IBlockProps } from "../../types/types";
+import { IBlockProps, ICourses } from "../../types/types";
 import { animatedScroll } from "../../utils/animatedScroll";
 import { findIndex } from "../../utils/helpers/findIndex";
 import { getYears } from "../../utils/helpers/getYears";
+import { showFetchError } from "../../utils/helpers/showFetchError";
 import { coursesSchema } from "../../utils/schema/coursesSchema";
 import { Category } from "../Category/Category";
 import { Form } from "../Form/Form";
 import { Input } from "../Input/Input";
 import { SaveButton } from "../SaveButton/SaveButton";
 
-export const CoursesBlock: React.FC<IBlockProps> = ({ id }) => {
-  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
+export const CoursesBlock: React.FC<IBlockProps> = React.memo(({ id }) => {
+  const [isFulfilled, setIsFulfilled] = React.useState<boolean>(false);
 
   const years = getYears();
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.resumeData.data);
-  const prevData = data?.courses;
+  const prevData = React.useMemo(() => data?.courses, [data]);
   const { userId } = useAuth();
 
   const {
@@ -31,7 +32,7 @@ export const CoursesBlock: React.FC<IBlockProps> = ({ id }) => {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm({
+  } = useForm<ICourses>({
     mode: "onBlur",
     resolver: yupResolver(coursesSchema),
   });
@@ -39,21 +40,19 @@ export const CoursesBlock: React.FC<IBlockProps> = ({ id }) => {
   const onSubmit = async () => {
     const values = getValues();
     try {
-      setIsFullfiled(true);
-      await setDoc(doc(db, "resume", userId), {
-        ...data,
-        courses: { ...values, blockId: id },
-      });
+      setIsFulfilled(true);
+      const dataToUpdate = { ...data, courses: { ...values, blockId: id } };
+      await setDoc(doc(db, "resume", userId), dataToUpdate);
       animatedScroll();
       dispatch(fetchResume());
     } catch (error) {
-      setIsFullfiled(false);
-      console.log(error);
+      setIsFulfilled(false);
+      showFetchError(onSubmit);
     }
   };
 
   const onError = () => {
-    setIsFullfiled(false);
+    setIsFulfilled(false);
   };
 
   return (
@@ -92,7 +91,7 @@ export const CoursesBlock: React.FC<IBlockProps> = ({ id }) => {
           />
         </Category>
         <SaveButton
-          isFullfiled={isFullfiled}
+          isFulfilled={isFulfilled}
           title={"Данные о ваших курсах обновлены"}
         >
           Сохранить
@@ -100,4 +99,4 @@ export const CoursesBlock: React.FC<IBlockProps> = ({ id }) => {
       </Form>
     </MainContainer>
   );
-};
+});

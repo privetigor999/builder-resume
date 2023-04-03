@@ -12,7 +12,6 @@ import {
   ThumbUp,
   NewReleases,
 } from "@mui/icons-material/";
-
 import "./standart.scss";
 
 interface IStandartProps {

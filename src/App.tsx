@@ -4,9 +4,10 @@ import { Header } from "./components/Header/Header";
 import ResumePage from "./pages/ResumePage/ResumePage";
 import { StartPage } from "./pages/StartPage/StartPage";
 import { AuthPage } from "./pages/AuthPage/AuthPage";
+import { AboutPage } from "./pages/AboutPage/AboutPage";
+import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 
 import "./App.css";
-import { AboutPage } from "./pages/AboutPage/AboutPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/resume" element={<ResumePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );

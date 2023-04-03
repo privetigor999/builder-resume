@@ -1,6 +1,6 @@
+import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { doc, setDoc } from "firebase/firestore";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { db } from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
@@ -10,6 +10,7 @@ import { fetchResume } from "../../store/resumeData/resumeActions";
 import { IBlockProps } from "../../types/types";
 import { animatedScroll } from "../../utils/animatedScroll";
 import { languagesLevels } from "../../utils/data";
+import { showFetchError } from "../../utils/helpers/showFetchError";
 import { languagesSchema } from "../../utils/schema/languagesSchema";
 import { Category } from "../Category/Category";
 import { Form } from "../Form/Form";
@@ -18,10 +19,8 @@ import { SaveButton } from "../SaveButton/SaveButton";
 
 export const LanguagesBlock: React.FC<IBlockProps> = ({ id }) => {
   const dispatch = useAppDispatch();
-  const [isFullfiled, setIsFullfiled] = React.useState<boolean>(false);
+  const [isFulfilled, setIsFulfilled] = React.useState<boolean>(false);
 
-  const resume = useAppSelector((state) => state.resumeTab.resume);
-  const languages = resume?.languages;
   const { userId } = useAuth();
   const data = useAppSelector((state) => state.resumeData.data);
   const prevData = data?.languages;
@@ -39,21 +38,22 @@ export const LanguagesBlock: React.FC<IBlockProps> = ({ id }) => {
   const onSubmit = async () => {
     const values = getValues();
     try {
-      setIsFullfiled(true);
-      await setDoc(doc(db, "resume", userId), {
+      setIsFulfilled(true);
+      const dataToUpdate = {
         ...data,
         languages: { ...values, blockId: id },
-      });
+      };
+      await setDoc(doc(db, "resume", userId), dataToUpdate);
       animatedScroll();
       dispatch(fetchResume());
     } catch (error) {
-      setIsFullfiled(false);
-      console.log(error);
+      setIsFulfilled(false);
+      showFetchError(onSubmit);
     }
   };
 
   const onError = () => {
-    setIsFullfiled(false);
+    setIsFulfilled(false);
     const values = getValues();
   };
   return (
@@ -99,7 +99,7 @@ export const LanguagesBlock: React.FC<IBlockProps> = ({ id }) => {
           />
         </Category>
         <SaveButton
-          isFullfiled={isFullfiled}
+          isFulfilled={isFulfilled}
           title={"Данные о ваших языках обновлены"}
         >
           Сохранить

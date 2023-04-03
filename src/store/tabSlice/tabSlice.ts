@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 import { ITab } from "./types";
 
 interface IState {
@@ -30,23 +29,6 @@ const tabSlice = createSlice({
     setCurrentTab: (state, action) => {
       state.currentTab = action.payload;
     },
-    // updateResume: (state, action) => {
-    //   state.listOfTabs = state.listOfTabs.map((tab) => {
-    //     if (tab.id === state.currentTab) {
-    //       return { ...tab, isFill: true };
-    //     }
-    //     return tab;
-    //   });
-    // state.resume = { ...state.resume, ...action.payload };
-    // },
-    // clearBlockResume: (state, action) => {
-    //   state.listOfTabs = state.listOfTabs.map((tab) => {
-    //     if (tab.id === action.payload) {
-    //       return { ...tab, isFill: false };
-    //     }
-    //     return tab;
-    //   });
-    // },
   },
 });
 

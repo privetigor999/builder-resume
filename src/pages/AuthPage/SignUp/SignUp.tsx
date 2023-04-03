@@ -19,7 +19,7 @@ const inputStyles = {
 };
 
 export const SignUp: React.FC = () => {
-  const [isFullfiled, setIsFullfiled] = React.useState(false);
+  const [isFulfilled, setIsFulfilled] = React.useState(false);
   const [errorMes, setErrorMes] = React.useState("Ошибка!");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ export const SignUp: React.FC = () => {
 
   const onSubmit = () => {
     setErrorMes("");
-    setIsFullfiled(true);
+    setIsFulfilled(true);
     const auth = getAuth();
 
     createUserWithEmailAndPassword(
@@ -55,7 +55,7 @@ export const SignUp: React.FC = () => {
         navigate("/resume");
       })
       .catch((error) => {
-        setIsFullfiled(false);
+        setIsFulfilled(false);
         switch (error.code) {
           case "auth/email-already-in-use":
             setErrorMes("Данный пользователь уже существует");
@@ -98,7 +98,7 @@ export const SignUp: React.FC = () => {
         <SaveButton
           title={"Вы успешно зарегистрировались!"}
           errorMes={errorMes}
-          isFullfiled={isFullfiled}
+          isFulfilled={isFulfilled}
           color={"primary"}
           withIcon={false}
           width="100%"

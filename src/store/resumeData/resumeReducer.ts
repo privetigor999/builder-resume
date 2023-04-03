@@ -4,11 +4,13 @@ import { fetchResume } from "./resumeActions";
 
 interface IState {
   status: string;
-  data: IResumeData | any;
+  message: null | string;
+  data: IResumeData | unknown;
 }
 
 const initialState: IState = {
   status: "",
+  message: null,
   data: [],
 };
 
@@ -28,6 +30,11 @@ const resumeDataSlice = createSlice({
       .addCase(fetchResume.fulfilled, (state, action) => {
         state.status = "success";
         state.data = action.payload;
+      })
+      .addCase(fetchResume.rejected, (state, action) => {
+        state.status = "error";
+        state.data = [];
+        state.message = action.payload;
       });
   },
 });

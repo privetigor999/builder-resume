@@ -16,7 +16,6 @@ import { ViewBlock } from "../../components/ViewBlock/ViewBlock";
 import { WorkExperienceBlock } from "../../components/WorkExperienceBlock/WorkExperienceBlock";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { useAuth } from "../../hooks/useAuth";
-import { MainContainer } from "../../layouts/MainContainer/MainContainer";
 import { helpers } from "../../utils/data";
 
 import "./resumePage.scss";
@@ -62,11 +61,9 @@ export default function ResumePage() {
   // Показываем лоадер только при первой загрузке на случай, если данные на бэке уже есть и чтобы они появились в нужных местах (инпутах)
   if (firstUpdateRef.current && status === "loading") {
     return (
-      <MainContainer>
-        <div className="resumePage__loader">
-          <Loader />
-        </div>
-      </MainContainer>
+      <div className="resumePage__loader">
+        <Loader />
+      </div>
     );
   }
 

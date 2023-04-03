@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Build,
   ContentCopy,
@@ -11,7 +13,6 @@ import {
   School,
   Theaters,
 } from "@mui/icons-material";
-import React from "react";
 
 import "./employeeList.scss";
 
