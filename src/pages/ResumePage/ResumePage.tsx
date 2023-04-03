@@ -5,6 +5,7 @@ import { CoursesBlock } from "../../components/CoursesBlock/CoursesBlock";
 import { DesignBlock } from "../../components/DesignBlock/DesignBlock";
 import { EducationBlock } from "../../components/EducationBlock/EducationBlock";
 import { ExtraInfoBlock } from "../../components/ExtraInfoBlock/ExtraInfoBlock";
+import { Helper } from "../../components/Helper/Helper";
 import { LanguagesBlock } from "../../components/LanguagesBlock/LanguagesBlock";
 import { Loader } from "../../components/Loader/Loader";
 import { MobileWarning } from "../../components/MobileWarning/MobileWarning";
@@ -13,10 +14,10 @@ import { Skills } from "../../components/Skills/Skills";
 import { StepListNavigation } from "../../components/StepListNavigation/StepListNavigation";
 import { ViewBlock } from "../../components/ViewBlock/ViewBlock";
 import { WorkExperienceBlock } from "../../components/WorkExperienceBlock/WorkExperienceBlock";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { useAppSelector } from "../../hooks/redux-hooks";
 import { useAuth } from "../../hooks/useAuth";
 import { MainContainer } from "../../layouts/MainContainer/MainContainer";
-import { fetchResume } from "../../store/resumeData/resumeActions";
+import { helpers } from "../../utils/data";
 
 import "./resumePage.scss";
 
@@ -24,7 +25,7 @@ export default function ResumePage() {
   const currentTab = useAppSelector((state) => state.resumeTab.currentTab);
   const status = useAppSelector((state) => state.resumeData.status);
   const { isAuth } = useAuth();
-  const dispatch = useAppDispatch();
+
   const firstUpdateRef = useRef(true);
 
   const switchBlocks = (id: number) => {
@@ -48,7 +49,7 @@ export default function ResumePage() {
       case 9:
         return <DesignBlock id={id} />;
       case 10:
-        return <ViewBlock id={id} />;
+        return <ViewBlock />;
     }
   };
 
@@ -75,7 +76,10 @@ export default function ResumePage() {
         <>
           <div className="resumePage">
             <StepListNavigation />
-            {switchBlocks(currentTab)}
+            <div className="resumePage__mainBlock">
+              {switchBlocks(currentTab)}
+              <Helper helpers={helpers[currentTab - 1]} />
+            </div>
           </div>
           <MobileWarning />
         </>

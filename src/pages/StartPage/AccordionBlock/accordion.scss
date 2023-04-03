@@ -1,15 +1,35 @@
 .accordion {
-  padding: 100px 60px;
+  padding: 50px 30px;
 
   color: var(--color-blue-main);
   background-color: var(--color-white);
 
+  @media screen and (min-width: 1200px) {
+    padding: 100px 60px;
+  }
+
   h5 {
-    font-size: 36px;
-    padding-bottom: 35px;
+    font-size: 20px;
+    padding-bottom: 15px;
+
+    @media screen and (min-width: 768px) {
+      font-size: 26px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      font-size: 36px;
+    }
   }
 
   p {
-    font-size: 20px;
+    font-size: 16px;
+
+    @media screen and (min-width: 768px) {
+      font-size: 18px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      font-size: 25px;
+    }
   }
 }

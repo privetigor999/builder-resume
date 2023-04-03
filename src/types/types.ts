@@ -98,3 +98,14 @@ export interface IAccordion {
   question: string;
   answer: string;
 }
+
+export type IHelpers = IHelper[];
+
+export interface IHelper {
+  title: string;
+  comment?: string;
+  goodExample?: string;
+  badExample?: string;
+  goodPhotoExample?: string;
+  badPhotoExample?: string;
+}

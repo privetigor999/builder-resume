@@ -10,9 +10,10 @@ import "./startPage.scss";
 export const StartPage: React.FC = () => {
   return (
     <div className="startPage">
-      <MainContainer>
+      <div className="startPage__carousel">
         <CarouselBlock />
-      </MainContainer>
+      </div>
+
       <Info
         title="Конструктор резюме"
         text="Составление резюме – сложная задача, требующая определённых знаний.

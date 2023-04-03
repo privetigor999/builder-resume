@@ -1,16 +1,36 @@
 .info {
-  padding: 100px 60px;
-  margin-top: -30px;
+  padding: 50px 30px;
 
   color: var(--color-white);
   background-color: var(--color-blue-main);
 
+  @media screen and (min-width: 1200px) {
+    padding: 100px 60px;
+  }
+
   h5 {
-    font-size: 36px;
+    font-size: 20px;
     padding-bottom: 15px;
+
+    @media screen and (min-width: 768px) {
+      font-size: 26px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      font-size: 36px;
+    }
   }
 
   p {
-    font-size: 20px;
+    font-size: 16px;
+
+    @media screen and (min-width: 768px) {
+      font-size: 23px;
+      padding-bottom: 15px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      font-size: 26px;
+    }
   }
 }

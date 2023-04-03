@@ -1,6 +1,8 @@
 import standartImg from "./../assets/standart.png";
 import halfImg from "./../assets/half.png";
-import { IAccordion } from "../types/types";
+import { IAccordion, IHelpers } from "../types/types";
+import goodPhoto from "./../assets/examples/goodPhotoExample.png";
+import badPhoto from "./../assets/examples/badPhotoExample.png";
 
 export const months = [
   "-",
@@ -81,4 +83,90 @@ export const accordions: IAccordion[] = [
     answer:
       "Мы предлагаем сохранения результата в формате PDF. Это самый актальный формат, который требуют работодатели.",
   },
+];
+
+export const helpers: IHelpers[] = [
+  [
+    {
+      title: "Должность",
+      comment: "Постарайтесь описать вашу должность емко и при этом понятно",
+      goodExample: "Frontend разработчик",
+      badExample: "Разработчик",
+    },
+    {
+      title: "Ожидания по зарплате",
+      comment:
+        "Постарайтесь объективно оценить свои ожидания исходя от должности и опыта работы. И не забудьте указать валюту",
+      goodExample: "90.000 рублей",
+      badExample: "105",
+    },
+    {
+      title: "Почта",
+      comment:
+        "Если вас зовут Иван Иванов, то рекомендуем назвать личную почту исходя из своих инициалов",
+      goodExample: "i_ivanov@mail.ru",
+      badExample: "hooligun1337@mail.ru",
+    },
+  ],
+
+  [
+    {
+      title: "Фотография",
+      comment:
+        "Постарайтесь выложить опрятную фотографию в анфас и без посторонних людей",
+      goodPhotoExample: goodPhoto,
+      badPhotoExample: badPhoto,
+    },
+  ],
+  [
+    {
+      title: "Факультет",
+      comment: "Постарайтесь полность написать название факультета",
+      goodExample: "Факультет государственного управления",
+      badExample: "ФГУ",
+    },
+  ],
+  [
+    {
+      title: "Название компании",
+      comment:
+        "Рекомедуется писать название компании, а не юридичееский адрес, на который она зарегистрирована",
+      goodExample: "Билайн / BeeLine",
+      badExample: "ПАО «ВымпелКом»",
+    },
+  ],
+  [
+    {
+      title: "Название курсов",
+      comment:
+        "Это могут быть как оффлайн курсы, так и онлайн, включая, например, Youtube",
+      goodExample: "React JS - путь самурая",
+      badExample: "React",
+    },
+  ],
+
+  [
+    {
+      title: "Языки",
+      comment:
+        "Если вы владеете китайским, то укажите, каким именно, так как он имеет несколько диалектов",
+      goodExample: "Китайский - Мандарин",
+      badExample: "Китайский",
+    },
+  ],
+  [
+    {
+      title: "Навыки",
+      comment: "Попробуйте определить для себя 5 важных навыков.",
+      goodExample: "Самообучаемость",
+      badExample: "Сильный",
+    },
+  ],
+  [
+    {
+      title: "Доп. информация",
+      comment:
+        "Здесь вы можете указать всю дополнительную информацию, которая может как-то заитересовать работодателя, например: участие в олимпиадах, соревнованиях, повышении категории, владение автомобильными правами и т.д.",
+    },
+  ],
 ];

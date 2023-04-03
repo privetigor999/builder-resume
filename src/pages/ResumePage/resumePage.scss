@@ -1,4 +1,6 @@
 .resumePage {
+  position: relative;
+
   display: none;
 
   @media screen and (min-width: 768px) {
@@ -12,5 +14,12 @@
 
     width: 100%;
     height: calc(100vh - var(--height-header) * 3);
+  }
+
+  &__mainBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
   }
 }
