@@ -92,6 +92,7 @@ export const SignUp: React.FC = () => {
           label="Пароль"
           error={!!errors?.signUpPassword}
           helperText={errors?.signUpPassword?.message as string}
+          type="password"
           required
         />
 

@@ -68,6 +68,7 @@ export const Login: React.FC = () => {
           id="signUpPassword"
           label="Пароль"
           sx={inputStyles}
+          type="password"
           required
         />
 

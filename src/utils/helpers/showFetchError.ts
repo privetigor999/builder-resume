@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-export const showFetchError = (func): void => {
+export const showFetchError = (func: any): void => {
   Swal.fire({
     title: "Произошла ошибка!",
     text: "Данные не были сохранены. Отправить заного?",
